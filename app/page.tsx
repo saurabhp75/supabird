@@ -15,7 +15,11 @@ export default async function Home() {
     redirect("/login");
   }
 
-  const { data: tweets } = await supabase.from("tweets").select();
+  const { data: tweets } = await supabase
+    .from("tweets")
+    .select("*, profiles(*)");
+  // We can grab colums frm related tables
+  // from same schema, if RLS allows us
 
   return (
     <div>
