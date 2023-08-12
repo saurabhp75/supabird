@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 // import AuthButtonClient from "../auth-button-client";
 import GitHubButton from "./github-button";
 
+export const dynamic = "force-dynamic";
+
 async function Login() {
   const supabase = createServerComponentClient<Database>({ cookies });
 

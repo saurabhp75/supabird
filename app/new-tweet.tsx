@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 export default function NewTweet({ user }: { user: User }) {
   const addTweet = async (formData: FormData) => {
     "use server";
