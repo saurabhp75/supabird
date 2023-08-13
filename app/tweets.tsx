@@ -5,6 +5,15 @@ import { useEffect, experimental_useOptimistic as useOptimistic } from "react";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
   const [optimisticTweets, addOptimisticTweet] = useOptimistic<
@@ -49,7 +58,7 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
       key={tweet.id}
       className="border border-gray-800 border-t-0 px-4 py-8 flex"
     >
-      <div className="h-12 w-12">
+      {/* <div className="h-12 w-12">
         <Image
           className="rounded-full"
           src={tweet.author.avatar_url}
@@ -57,8 +66,23 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
           width={48}
           height={48}
         />
-      </div>
-      <div className="ml-4">
+      </div> */}
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>
+            <Avatar>
+              <AvatarImage src={tweet.author.avatar_url} />
+              <AvatarFallback>user avatar</AvatarFallback>
+            </Avatar>
+          </CardTitle>
+          <CardDescription>@{tweet.author.username}</CardDescription>
+        </CardHeader>
+        <CardContent>{tweet.title}</CardContent>
+        <CardFooter className="flex justify-between">
+          <Likes tweet={tweet} addOptimisticTweet={addOptimisticTweet} />
+        </CardFooter>
+      </Card>
+      {/* <div className="ml-4">
         <p>
           <span className="font-bold">{tweet.author.name}</span>
           <span className="text-sm ml-2 text-gray-400">
@@ -67,7 +91,7 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
         </p>
         <p>{tweet.title}</p>
         <Likes tweet={tweet} addOptimisticTweet={addOptimisticTweet} />
-      </div>
+      </div> */}
     </div>
   ));
 }

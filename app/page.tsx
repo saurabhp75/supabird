@@ -8,10 +8,9 @@ import Tweets from "./tweets";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const supabase = createServerComponentClient<Database>({ß cookies });
+  const supabase = createServerComponentClient<Database>({ cookies });
 
-  console.log(`location: ${location}`);
-  
+  // console.log(`location: ${location}`);
 
   const {
     data: { session },
