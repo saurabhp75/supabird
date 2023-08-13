@@ -5,6 +5,8 @@ import {
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+
 
 export default function AuthButtonClient({
   session,
@@ -15,7 +17,7 @@ export default function AuthButtonClient({
   const router = useRouter();
 
   const handleSignIn = async () => {
-    console.log("SignIn clicked");
+    // console.log("SignIn clicked");
     await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
@@ -25,18 +27,19 @@ export default function AuthButtonClient({
   };
 
   const handleSignOut = async () => {
-    console.log("SignOut clicked");
+    // console.log("SignOut clicked");
     await supabase.auth.signOut();
+    // Hide the protected tweets
     router.refresh();
   };
 
   return session ? (
-    <button className="text-xs text-gray-400" onClick={handleSignOut}>
+    <Button  onClick={handleSignOut}>
       Logout
-    </button>
+    </Button>
   ) : (
-    <button className="text-xs text-gray-400" onClick={handleSignIn}>
+    <Button  onClick={handleSignIn}>
       Login
-    </button>
+    </Button>
   );
 }

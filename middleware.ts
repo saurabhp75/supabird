@@ -3,6 +3,10 @@ import { NextResponse } from "next/server";
 
 import type { NextRequest } from "next/server";
 
+
+// Server components have read-only access to cookies
+// Client components, route handlers, server actions
+// and middleware can all set a cookie.
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient<Database>({ req, res });
