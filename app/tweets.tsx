@@ -15,6 +15,10 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
 export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
   const [optimisticTweets, addOptimisticTweet] = useOptimistic<
     TweetWithAuthor[],
@@ -75,10 +79,12 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
               <AvatarFallback>user avatar</AvatarFallback>
             </Avatar>
           </CardTitle>
-          <CardDescription>@{tweet.author.username}</CardDescription>
+          <CardDescription>
+            @{tweet.author.username} {`${dayjs(tweet.created_at).fromNow()}`}
+          </CardDescription>
         </CardHeader>
         <CardContent>{tweet.title}</CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex justify-between border-gray-100 border-2">
           <Likes tweet={tweet} addOptimisticTweet={addOptimisticTweet} />
         </CardFooter>
       </Card>
