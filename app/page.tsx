@@ -4,6 +4,7 @@ import AuthButtonServer from "./auth-button-server";
 import { redirect } from "next/navigation";
 import NewTweet from "./new-tweet";
 import Tweets from "./tweets";
+import { ModeToggle } from "@/components/theme-switcher";
 
 export const dynamic = "force-dynamic";
 
@@ -45,6 +46,7 @@ export default async function Home() {
       <div className="flex justify-between px-4 py-6 border border-gray-800 border-t-0">
         <h1 className="text-xl font-bold">Home</h1>
         <AuthButtonServer />
+        <ModeToggle />
       </div>
       <NewTweet user={session.user} />
       <Tweets tweets={tweets} />
