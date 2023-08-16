@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 // import AuthButtonClient from "../auth-button-client";
 import GitHubButton from "./github-button";
+import LoginPage from "./login";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +22,8 @@ async function Login() {
   // Show login page/button as session is null
   return (
     <div className="flex-1 flex justify-center items-center">
-      <GitHubButton />
+      <LoginPage />
+      {/* <GitHubButton /> */}
     </div>
   );
 }

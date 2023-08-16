@@ -84,7 +84,7 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
           </CardDescription>
         </CardHeader>
         <CardContent>{tweet.title}</CardContent>
-        <CardFooter className="flex justify-between border-gray-100 border-2">
+        <CardFooter className="flex justify-between">
           <Likes tweet={tweet} addOptimisticTweet={addOptimisticTweet} />
         </CardFooter>
       </Card>
