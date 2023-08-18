@@ -1,4 +1,4 @@
 # Nextjs app using Supabase and
 
-- TailwindCSS
-- Shadcn
+- TailwindCSS.
+- Shadcn.
