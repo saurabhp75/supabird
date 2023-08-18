@@ -2,3 +2,4 @@
 
 - TailwindCSS.
 - Shadcn.
+- Typescript.
