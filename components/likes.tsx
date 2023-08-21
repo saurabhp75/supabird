@@ -20,6 +20,7 @@ export default function Likes({
       data: { user },
     } = await supabase.auth.getUser();
 
+    // Increment/decrement likes only with authenticated user
     if (user) {
       if (tweet.user_has_liked_tweet) {
         addOptimisticTweet({

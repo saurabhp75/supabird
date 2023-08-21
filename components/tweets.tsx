@@ -13,7 +13,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -32,7 +31,7 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
     return newOptimisticTweets;
   });
 
-  const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
   // Subscribe to real-time updates on tweets table
@@ -42,7 +41,7 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
       .on(
         "postgres_changes",
         {
-          event: "*",
+          event: "*", // All events (insert, update, delete)
           schema: "public",
           table: "tweets",
         },
@@ -62,22 +61,18 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
       key={tweet.id}
       className="border border-gray-800 border-t-0 px-4 py-8 flex"
     >
-      {/* <div className="h-12 w-12">
-        <Image
-          className="rounded-full"
-          src={tweet.author.avatar_url}
-          alt="tweet user avatar"
-          width={48}
-          height={48}
-        />
-      </div> */}
       <Card className="w-full">
         <CardHeader>
           <CardTitle>
-            <Avatar>
-              <AvatarImage src={tweet.author.avatar_url} />
-              <AvatarFallback>user avatar</AvatarFallback>
-            </Avatar>
+            <div className="h-12 w-12">
+              <Image
+                className="rounded-full"
+                src={tweet.author.avatar_url}
+                alt="tweet user avatar"
+                width={48}
+                height={48}
+              />
+            </div>
           </CardTitle>
           <CardDescription>
             @{tweet.author.username} {`${dayjs(tweet.created_at).fromNow()}`}
@@ -88,16 +83,6 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
           <Likes tweet={tweet} addOptimisticTweet={addOptimisticTweet} />
         </CardFooter>
       </Card>
-      {/* <div className="ml-4">
-        <p>
-          <span className="font-bold">{tweet.author.name}</span>
-          <span className="text-sm ml-2 text-gray-400">
-            @{tweet.author.username}
-          </span>
-        </p>
-        <p>{tweet.title}</p>
-        <Likes tweet={tweet} addOptimisticTweet={addOptimisticTweet} />
-      </div> */}
     </div>
   ));
 }

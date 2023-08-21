@@ -1,7 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-// import AuthButtonClient from "../auth-button-client";
 import GitHubButton from "./github-button";
 import LoginPage from "./login";
 
@@ -23,7 +22,6 @@ async function Login() {
   return (
     <div className="flex-1 flex justify-center items-center">
       <LoginPage />
-      {/* <GitHubButton /> */}
     </div>
   );
 }
