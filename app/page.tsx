@@ -1,10 +1,10 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import AuthButtonServer from "./auth-button-server";
 import { redirect } from "next/navigation";
 import NewTweet from "./new-tweet";
 import Tweets from "./tweets";
 import { ModeToggle } from "@/components/theme-switcher";
+import AuthButtonClient from "./auth-button-client";
 
 export const dynamic = "force-dynamic";
 
@@ -22,15 +22,17 @@ export default async function Home() {
     redirect("/login");
   }
 
+  // We can grab colums from related tables from same
+  // schema, if RLS allows us. Also, "profiles" has been
+  // aliased to "author"
   const { data } = await supabase
     .from("tweets")
     .select("*, author: profiles(*), likes(user_id)")
     .order("created_at", {
       ascending: false,
     });
-  // We can grab colums frm related tables
-  // from same schema, if RLS allows us
 
+  // Transform tweet data
   const tweets =
     data?.map((tweet) => ({
       ...tweet,
@@ -45,7 +47,7 @@ export default async function Home() {
     <div className="w-full max-w-xl mx-auto">
       <div className="flex justify-between px-4 py-6 border border-gray-800 border-t-0">
         <h1 className="text-xl font-bold">Home</h1>
-        <AuthButtonServer />
+        <AuthButtonClient session={session} />
         <ModeToggle />
       </div>
       <NewTweet user={session.user} />

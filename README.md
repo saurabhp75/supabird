@@ -1,5 +1,4 @@
-# Nextjs app using Supabase and:
+# Nextjs app built using
 
-- TailwindCSS.
-- Shadcn.
-- Typescript.
+- Supabase
+- Shadcn
